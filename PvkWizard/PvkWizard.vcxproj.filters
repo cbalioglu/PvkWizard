@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Export1.c" />
+    <ClCompile Include="Export2.c" />
+    <ClCompile Include="Import1.c" />
+    <ClCompile Include="Import2.c" />
+    <ClCompile Include="Main.c" />
+    <ClCompile Include="Pvk.c" />
+    <ClCompile Include="Selection.c" />
+    <ClCompile Include="Start.c" />
+    <ClCompile Include="Summary.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PvkWizard.h" />
+    <ClInclude Include="Resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="PvkWizard.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{35fd90c2-1ed9-414a-99e9-3415cca0f49f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\App.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Header.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Watermark.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

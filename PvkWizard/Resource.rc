@@ -1,0 +1,326 @@
+#include <windows.h>
+#include <commctrl.h>
+
+#include "Resource.h"
+
+VS_VERSION_INFO VERSIONINFO
+    PRODUCTVERSION   1, 0, 9
+    FILEVERSION	     1, 0, 9
+    FILEOS		     VOS_NT_WINDOWS32
+    FILETYPE	     VFT_DLL
+    FILEFLAGSMASK    VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+    FILEFLAGS	     VS_FF_DEBUG
+#endif
+
+    BEGIN
+        BLOCK TEXT("StringFileInfo")
+        BEGIN
+            BLOCK "040904B0"
+            BEGIN
+                VALUE "FileDescription", "PvkWizard"
+                VALUE "FileVersion", "1.0.9"
+                VALUE "OriginalFilename", "PvkWizard.exe"
+                VALUE "InternalName", "PvkWizard"
+                VALUE "ProductName", "PVK File Import/Export Wizard"
+                VALUE "ProductVersion", "1.0.9"
+                VALUE "CompanyName", "Can Balioglu"
+                VALUE "LegalCopyright", "Copyright © 2007 - 2015 Can Balioglu. All rights reserved."
+                VALUE "Comments", "http://canbalioglu.com"
+            END
+        END
+
+        BLOCK TEXT("VarFileInfo")
+        BEGIN
+            VALUE "Translation", 0x409, 1200
+        END
+    END
+
+//
+// Neutral
+//
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+IDI_APPLICATION ICON "Resources\\App.ico"
+
+IDB_WATERMARK BITMAP "Resources\\Watermark.bmp"
+IDB_HEADER    BITMAP "Resources\\Header.bmp"
+
+//
+// EN-US
+//
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+STRINGTABLE
+    BEGIN
+        IDS_SELECTION_TITLE      "Please select the action you want to perform."
+        IDS_IMPORT1_TITLE        "Import from .SPC/.PVK file pair"
+        IDS_IMPORT1_SUBTITLE     "Please specify the locations of the .SPC and .PVK files to be imported."
+        IDS_IMPORT2_TITLE        "Import from .SPC/.PVK file pair"
+        IDS_IMPORT2_SUBTITLE     "Please specify the import settings."
+        IDS_EXPORT1_TITLE        "Certificate selection"
+        IDS_EXPORT1_SUBTITLE     "Please select the certificate whose private key is to be exported."
+        IDS_EXPORT2_TITLE        "Export to .PVK file"
+        IDS_EXPORT2_SUBTITLE     "Please specify the name of the .PVK file to be created."
+        IDS_CER_FILE_TYPE        "Software Publisher Certificate File (*.spc)\0*.spc\0DER Encoded Certificate File (*.cer)\0*.cer\0PKCS #7 Certificates File (*.p7b)\0*.p7b\0All Files (*.*)\0*.*\0"
+        IDS_PVK_FILE_TYPE        "Private Key File (*.pvk)\0*.pvk\0All Files (*.*)\0*.*\0"
+        IDS_ISSUED_TO            "Issued to"
+        IDS_ISSUED_BY            "Issued by"
+        IDS_EXPIRATION_DATE      "Expiration date"
+        IDS_SETTING_COLUMN       "Setting"
+        IDS_VALUE_COLUMN         "Value"
+        IDS_OPERATION            "Operation"
+        IDS_IMPORT               "Import from .SPC/.PVK file pair"
+        IDS_EXPORT               "Export to .PVK file"
+        IDS_CER_FILE             "Certificate file"
+        IDS_PVK_FILE             "Private key file"
+        IDS_PVK_PSWD             "Password specified"
+        IDS_EXPORTABLE           "Permit reexport"
+        IDS_USER_PROTECTED       "User protected"
+        IDS_CSP                  "CSP"
+        IDS_RSA_PROV             "System default RSA provider"
+        IDS_DSS_PROV             "System default DSS provider"
+        IDS_CERTIFICATE          "Certificate"
+        IDS_STRONG_ENC           "Strong encryption"
+        IDS_YES                  "Yes"
+        IDS_NO                   "No"
+        IDS_LINK                 "Can Balioglu - <A HREF=""http://canbalioglu.com"">http://canbalioglu.com</A>"
+        IDS_CER_FILE_NOT_FOUND   "The certificate file does not exist."
+        IDS_PVK_FILE_NOT_FOUND   "The private key file does not exist."
+        IDS_STORE_FAILED         "The personal certificate store cannot be opened."
+        IDS_BAD_KEY              "The private key is invalid."
+        IDS_PVK_NOT_FOUND        "The certificate does not have an associated private key."
+        IDS_PVK_UNKNOWN_ERR      "The private key cannot be retrieved."
+        IDS_PVK_NOT_EXPORTABLE   "The private key is not exportable."
+        IDS_INVALID_FILENAME     "The specified file name is invalid."
+        IDS_OVERWRITE            "The file already exists. Do you want to replace it?"
+        IDS_PSWD_DO_NOT_MATCH    "The passwords do not match."
+        IDS_WARNING              "It is strongly recommended that a password be supplied when exporting private keys. Otherwise, the private key can be easily compromised.\r\n\r\nDo you want to continue anyway?"
+        IDS_UNKNOWN_ERR          "An unknown error occured.\r\n\r\nError: 0x%1!08X!"
+        IDS_IMPORTED             "The private key and the certificate(s) have been successfully imported."
+        IDS_IMPORTED_NO_PVK      "The certificate file do not contain any certificates associated with the specified private key. Only the certificate(s) have been imported."
+        IDS_EXPORTED             "The private key has been successfully exported."
+    END
+
+IDD_START DIALOGEX 0, 0, 317, 193
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+CAPTION "Private Key Import/Export Wizard"
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL "Welcome to the PVK File Import/Export Wizard",
+                IDC_TITLE, STATIC,
+                SS_LEFT,
+                115, 9, 200, 26
+
+        CONTROL "This wizard helps you to import and export cryptographic private keys.",
+                -1, STATIC,
+                SS_LEFT,
+                115, 60, 200, 16
+
+        CONTROL "To continue, click Next.",
+                -1, STATIC,
+                SS_LEFT,
+                115, 110, 100, 8
+
+        CONTROL "Can Balioglu - http://canbalioglu.com",
+                -1, STATIC,
+                SS_LEFT,
+                195, 178, 130, 8
+    END
+
+IDD_SELECTION DIALOGEX 0, 0, 317, 143
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL "&Import from .SPC/.PVK file pair",
+                IDC_IMPORT, BUTTON,
+                BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,
+                15, 10, 150, 10
+
+        CONTROL "&Export to .PVK file",
+                IDC_EXPORT, BUTTON,
+                BS_AUTORADIOBUTTON,
+                15, 60, 150, 10
+
+        CONTROL "This option allows you to import a digital certificate and its associated private key from an .SPC/.PVK file pair to your system certificate store.",
+                -1, STATIC,
+                SS_LEFT,
+                27, 24, 280, 16
+
+        CONTROL "This option allows you to export the private key of a digital certificate to a .PVK file.",
+                -1, STATIC,
+                SS_LEFT,
+                27, 74, 280, 16
+    END
+
+IDD_IMPORT1 DIALOGEX 0, 0, 317, 143
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL ".&SPC file (or .CER, .P7B)",
+                -1, STATIC,
+                SS_LEFT,
+                21, 5, 100, 16
+
+        CONTROL "",
+                IDC_CER_FILE, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 15, 200, 12
+
+        CONTROL "&Browse...",
+                IDC_BROWSE_CER, BUTTON,
+                BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP,
+                223, 15, 45, 12
+
+        CONTROL ".&PVK file",
+                -1, STATIC,
+                SS_LEFT,
+                21, 35, 100, 16
+
+        CONTROL "",
+                IDC_PVK_FILE, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 45, 200, 12
+
+        CONTROL "B&rowse...",
+                IDC_BROWSE_PVK, BUTTON,
+                BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP,
+                223, 45, 45, 12
+
+        CONTROL ".PVK &file password",
+                -1, STATIC,
+                SS_LEFT,
+                21, 80, 100, 16
+
+        CONTROL "",
+                IDC_PVK_PSWD, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | ES_PASSWORD | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 90, 200, 12
+    END
+
+IDD_IMPORT2 DIALOGEX 0, 0, 317, 143
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL "&Mark the private key as exportable.",
+                IDC_EXPORTABLE, BUTTON,
+                BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,
+                20, 5, 150, 16
+
+        CONTROL "&Prompt every time the private key is used.",
+                IDC_USER_PROTECTED, BUTTON,
+                BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,
+                20, 30, 150, 8
+
+        CONTROL "Select the cryptographic service provider to be used to store the private key.",
+                -1, STATIC,
+                SS_LEFT,
+                15, 63, 280, 8
+
+        CONTROL "Use the system default &RSA provider.",
+                IDC_RSA_PROV, BUTTON,
+                BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,
+                20, 83, 150, 10
+
+        CONTROL "Use the system default &DSS provider.",
+                IDC_DSS_PROV, BUTTON,
+                BS_AUTORADIOBUTTON,
+                20, 103, 150, 10
+    END
+
+IDD_EXPORT1 DIALOGEX 0, 0, 317, 143
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL "Certificate information:",
+                -1, STATIC,
+                SS_LEFT,
+                21, 8, 200, 8
+
+        CONTROL "",
+                IDC_CERTIFICATE, WC_LISTVIEW,
+                LVS_REPORT | LVS_SINGLESEL | LVS_NOCOLUMNHEADER | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 20, 199, 50
+
+        CONTROL "&Select from store...",
+                IDC_SELECT_CERT, BUTTON,
+                BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP,
+                223, 20, 75, 15
+
+        CONTROL "&View certificate",
+                IDC_VIEW_CERT, BUTTON,
+                BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP,
+                223, 40, 75, 15
+    END
+
+IDD_EXPORT2 DIALOGEX 0, 0, 317, 143
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL ".&PVK file",
+                -1, STATIC,
+                SS_LEFT,
+                21, 5, 100, 16
+
+        CONTROL "",
+                IDC_PVK_FILE, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 15, 200, 12
+
+        CONTROL "B&rowse...",
+                IDC_BROWSE_PVK, BUTTON,
+                BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP,
+                223, 15, 45, 12
+
+        CONTROL ".PVK &file password (optional, prefer ASCII-7 characters)",
+                -1, STATIC,
+                SS_LEFT,
+                21, 45, 200, 16
+
+        CONTROL "",
+                IDC_PVK_PSWD, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | ES_PASSWORD | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 55, 200, 12
+
+        CONTROL "Confirm password",
+                -1, STATIC,
+                SS_LEFT,
+                21, 75, 100, 16
+
+        CONTROL "",
+                IDC_CONFIRM_PSWD, EDIT,
+                ES_LEFT | ES_AUTOHSCROLL | ES_PASSWORD | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                20, 85, 200, 12
+
+        CONTROL "&Enable strong encryption if possible (128 bit)",
+                IDC_STRONG_ENC, BUTTON,
+                BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,
+                20, 120, 160, 8
+    END
+
+IDD_SUMMARY DIALOGEX 0, 0, 317, 193
+STYLE DS_CONTROL | DS_SHELLFONT | WS_CHILD
+FONT 8, "MS SHELL DLG"
+    BEGIN
+        CONTROL "Completing the Private Key Import/Export Wizard",
+                IDC_TITLE, STATIC,
+                SS_LEFT,
+                115, 9, 200, 26
+
+        CONTROL "You have specified the following settings:",
+                -1, STATIC,
+                SS_LEFT,
+                121, 55, 200, 8
+
+        CONTROL "",
+                IDC_SUMMARY, WC_LISTVIEW,
+                LVS_REPORT | LVS_SINGLESEL | WS_BORDER | WS_GROUP | WS_TABSTOP,
+                120, 70, 200, 95
+
+        CONTROL "Can Balioglu - http://canbalioglu.com",
+                -1, STATIC,
+                SS_LEFT,
+                215, 178, 110, 8
+    END
