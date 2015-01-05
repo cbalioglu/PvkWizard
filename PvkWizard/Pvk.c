@@ -1,3 +1,11 @@
+/*++
+
+Copyright (c) 2007 Can Balioglu. All rights reserved.
+
+See License.txt in the project root for license information.
+
+--*/
+
 #include <windows.h>
 #include <shellapi.h>
 #include <BlgPvk.h>

@@ -1,3 +1,11 @@
+/*++
+
+Copyright (c) 2007 Can Balioglu. All rights reserved.
+
+See License.txt in the project root for license information.
+
+--*/
+
 #pragma once
 
 #ifndef PVKWIZ_RESOURCE_H

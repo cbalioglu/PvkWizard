@@ -1,3 +1,11 @@
+/*++
+
+Copyright (c) 2007 Can Balioglu. All rights reserved.
+
+See License.txt in the project root for license information.
+
+--*/
+
 #include <windows.h>
 
 #include "BlgPvk.h"
@@ -28,33 +36,35 @@ BlgPvkImport(
     IN DWORD Flags,
     OUT HCRYPTKEY *Key
     )
+
 /*++
 
 Routine Description:
 
-Imports the private key stored in the specified PVK file into a key container within a
-cryptographic service provider.
+    Imports the private key stored in the specified PVK file into a key container within a
+    cryptographic service provider.
 
 Arguments:
 
-Provider - Handle to a cryptographic service provider.
+    Provider - Handle to a cryptographic service provider.
 
-FileName - Pointer to a null-terminated string containing the relative or fully qualified
-name of the PVK file.
+    FileName - Pointer to a null-terminated string containing the relative or fully qualified
+        name of the PVK file.
 
-Password - Pointer to a null-terminated ASCII string containing the password for decrypting
-the private key.
+    Password - Pointer to a null-terminated ASCII string containing the password for decrypting
+        the private key.
 
-Flags - Specifies additional options. See the documentation for details.
+    Flags - Specifies additional options. See the documentation for details.
 
-Key - Pointer to a HCRYPTKEY value that receives the handle of the imported key. When you
-have finished using the key, release the  handle by calling the CryptDestroyKey routine.
+    Key - Pointer to a HCRYPTKEY value that receives the handle of the imported key. When you
+        have finished using the key, release the  handle by calling the CryptDestroyKey routine.
 
 Return Value:
 
-TRUE if the routine succeeds; otherwise, FALSE.
+    TRUE if the routine succeeds; otherwise, FALSE.
 
 --*/
+
 {
     BOOL IsOk = FALSE;
     HANDLE File = INVALID_HANDLE_VALUE;
@@ -213,33 +223,35 @@ BlgPvkExport(
     IN PCSTR Password OPTIONAL,
     IN DWORD Flags
     )
+
 /*++
 
 Routine Description:
 
-Exports a private key from the specified key container within a cryptographic service
-provider and places it in a PVK file.
+    Exports a private key from the specified key container within a cryptographic service
+    provider and places it in a PVK file.
 
 Arguments:
 
-Provider - Handle to a cryptographic service provider associated with the key container
-of the private key to be exported.
+    Provider - Handle to a cryptographic service provider associated with the key container
+        of the private key to be exported.
 
-KeySpec - Specifies the private key to be exported from the key container.
+    KeySpec - Specifies the private key to be exported from the key container.
 
-FileName - Pointer to a null-terminated string containing the name of the PVK file to be
-created or overwritten.
+    FileName - Pointer to a null-terminated string containing the name of the PVK file to be
+        created or overwritten.
 
-Password - Pointer to a null-terminated ASCII string containing the password for encrypting
-the private key.
+    Password - Pointer to a null-terminated ASCII string containing the password for encrypting
+        the private key.
 
-Flags - Specifies additional options for the routine.
+    Flags - Specifies additional options for the routine.
 
 Return Value:
 
-TRUE if the routine succeeds; otherwise, FALSE.
+    TRUE if the routine succeeds; otherwise, FALSE.
 
 --*/
+
 {
     BOOL IsOk = FALSE;
     HCRYPTKEY Key = 0;

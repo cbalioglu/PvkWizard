@@ -1,11 +1,15 @@
+/*++
+
+Copyright (c) 2007 Can Balioglu. All rights reserved.
+
+See License.txt in the project root for license information.
+
+--*/
+
 #include <windows.h>
 #include <windowsx.h>
 
 #include "PvkWizard.h"
-
-//
-//	Define the global variables.
-//
 
 DWORD g_WizChoice;
 PBLGP_IMPORT_DATA g_ImportData;

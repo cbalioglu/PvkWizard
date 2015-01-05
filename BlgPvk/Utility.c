@@ -1,3 +1,11 @@
+/*++
+
+Copyright (c) 2007 Can Balioglu. All rights reserved.
+
+See License.txt in the project root for license information.
+
+--*/
+
 #include <windows.h>
 #include <strsafe.h>
 
@@ -19,31 +27,33 @@ BlgpDeriveKey(
     IN DWORD Flags,
     OUT HCRYPTKEY *Key
     )
+
 /*++
 
 Routine Description:
 
-Derives a symmetric RC4 encryption key from the specified password and salt value.
+    Derives a symmetric RC4 encryption key from the specified password and salt value.
 
 Arguments:
 
-Provider - Handle to a cryptographic service provider.
+    Provider - Handle to a cryptographic service provider.
 
-Salt - Pointer to a buffer containing the salt value.
+    Salt - Pointer to a buffer containing the salt value.
 
-SaltCb - Size, in bytes, of the buffer pointed to by the Salt parameter.
+    SaltCb - Size, in bytes, of the buffer pointed to by the Salt parameter.
 
-Password - Pointer to a null-terminated ASCII string containing the password to be used.
+    Password - Pointer to a null-terminated ASCII string containing the password to be used.
 
-Flags - Specifies additional options for the routine.
+    Flags - Specifies additional options for the routine.
 
-Key - Pointer to a handle that receives the derived key.
+    Key - Pointer to a handle that receives the derived key.
 
 Return Value:
 
-TRUE if the routine succeeds; otherwise, FALSE.
+    TRUE if the routine succeeds; otherwise, FALSE.
 
 --*/
+
 {
     BOOL IsOk = FALSE;
     size_t PasswordCb;
